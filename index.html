@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZHILIANG LIN (林志良) - Personal Website</title>
+    
+    <!-- 新增的 Logo (Favicon) 链接 -->
+    <!-- 确保你上传了一个名为 logo.png 的文件到 files 文件夹 -->
+    <link rel="icon" type="image/png" href="files/stone-pile_38505.png" onerror="this.href='https://placehold.co/32x32/3b82f6/white?text=ZL'; this.onerror=null;">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,11 +112,9 @@
             const fileName = `./${pageToLoad}.html`; // 保持 './'
 
             try {
-                // *** FIX: 使用 new URL() 来从 blob: URL 上下文正确解析相对路径 ***
-                const fileUrl = new URL(fileName, window.location.href);
-
-                // 加载内容
-                const response = await fetch(fileUrl); // 使用 fileUrl 而不是 fileName
+                // *** FIX: 恢复到最简单的 fetch，用于 Netlify 部署 ***
+                // 这在预览中会失败 (Failed to fetch)，但在 Netlify 上会成功。
+                const response = await fetch(fileName); 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
